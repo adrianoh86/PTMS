@@ -3,10 +3,12 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import sql from "mssql";
 import { getPool } from "./config/db";
+import rfidRouter from "./routes/rfid";
 
 const app = express();
 app.use(cors({ origin: process.env.CORS_ORIGIN?.split(",") ?? "http://localhost:5173" }));
 app.use(express.json({ limit: "1mb" }));
+app.use("/api/rfid", rfidRouter);
 
 const siteTypes = ["FACTORY", "EXTERNAL_WAREHOUSE"] as const;
 const zoneTypes = ["RECEIVING", "STORAGE", "STAGING", "PRODUCTION", "DISPATCH", "OTHER"] as const;
@@ -21,7 +23,7 @@ function isDuplicate(error: unknown): boolean {
   return e?.number === 2601 || e?.number === 2627;
 }
 
-app.get("/api/health", (_req, res) => res.json({ status: "ok", service: "ptms-api", version: "0.3.0" }));
+app.get("/api/health", (_req, res) => res.json({ status: "ok", service: "ptms-api", version: "0.4.0" }));
 
 app.get("/api/db/health", async (_req, res) => {
   try {
