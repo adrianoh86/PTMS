@@ -10,7 +10,7 @@ BEGIN
     CREATE TABLE dbo.RfidGateSensor
     (
         SensorId        int IDENTITY(1,1) NOT NULL CONSTRAINT PK_RfidGateSensor PRIMARY KEY,
-        GateId          int NOT NULL,
+        GateId          bigint NOT NULL,
         SensorCode      nvarchar(80) NOT NULL,
         SensorName      nvarchar(120) NOT NULL,
         SensorSide      char(1) NOT NULL,
