@@ -21,7 +21,7 @@ IF NOT EXISTS (SELECT 1 FROM sys.check_constraints WHERE name='CK_RfidReader_Int
 IF COL_LENGTH('dbo.RfidRawEvent', 'RawPayload') IS NULL
   ALTER TABLE dbo.RfidRawEvent ADD RawPayload nvarchar(max) NULL;
 IF NOT EXISTS (SELECT 1 FROM sys.check_constraints WHERE name='CK_RfidRawEvent_RawPayload_Json')
-  ALTER TABLE dbo.RfidRawEvent ADD CONSTRAINT CK_RfidRawEvent_RawPayload_Json CHECK(RawPayload IS NULL OR ISJSON(RawPayload)=1);
+  EXEC(N'ALTER TABLE dbo.RfidRawEvent ADD CONSTRAINT CK_RfidRawEvent_RawPayload_Json CHECK(RawPayload IS NULL OR ISJSON(RawPayload)=1)');
 
 IF NOT EXISTS (SELECT 1 FROM sys.indexes WHERE name='IX_RfidReader_Zone_Active' AND object_id=OBJECT_ID('dbo.RfidReader'))
   CREATE INDEX IX_RfidReader_Zone_Active ON dbo.RfidReader(ZoneId, IsActive);
