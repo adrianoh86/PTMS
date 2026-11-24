@@ -2,6 +2,8 @@
   PTMS Migration 005: Gate passage correlation configuration and candidates
   Initial passage window: 5000 ms (5 seconds)
 */
+SET QUOTED_IDENTIFIER ON;
+SET ANSI_NULLS ON;
 SET XACT_ABORT ON;
 BEGIN TRANSACTION;
 
