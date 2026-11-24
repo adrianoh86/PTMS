@@ -102,7 +102,7 @@ export default function App() {
     finally { setBusy(false); }
   }
 
-  async function submitZone(event: React.FormEvent) {
+  async function submitZone(event: FormEvent) {
     event.preventDefault();
     if (!selectedSite) return;
     setBusy(true); setError("");
@@ -234,7 +234,9 @@ export default function App() {
   }
 
   const activeSites = sites.filter(site => site.IsActive);
-  const activeZones = zones.filter(zone => zone.IsActive);\n  const activePallets = pallets.filter(pallet => pallet.Status !== "INACTIVE");\n  const chosenPallet = pallets.find(pallet => pallet.PalletId === selectedPallet);
+  const activeZones = zones.filter(zone => zone.IsActive);
+  const activePallets = pallets.filter(pallet => pallet.Status !== "INACTIVE");
+  const chosenPallet = pallets.find(pallet => pallet.PalletId === selectedPallet);
 
   return (
     <main className="shell">
