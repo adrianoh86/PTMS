@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 
 type Site = {
   SiteId: number;
@@ -65,7 +65,7 @@ export default function App() {
 
   useEffect(() => { void initialize(); }, []);
 
-  async function submitSite(event: React.FormEvent) {
+  async function submitSite(event: FormEvent) {
     event.preventDefault();
     setBusy(true); setError("");
     try {
