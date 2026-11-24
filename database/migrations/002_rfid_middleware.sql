@@ -17,7 +17,7 @@ IF COL_LENGTH('dbo.RfidReader', 'UpdatedAt') IS NULL
   ALTER TABLE dbo.RfidReader ADD UpdatedAt datetime2(3) NOT NULL CONSTRAINT DF_RfidReader_UpdatedAt DEFAULT(SYSUTCDATETIME());
 
 IF NOT EXISTS (SELECT 1 FROM sys.check_constraints WHERE name='CK_RfidReader_IntegrationMode')
-  ALTER TABLE dbo.RfidReader ADD CONSTRAINT CK_RfidReader_IntegrationMode CHECK(IntegrationMode IN('VENDOR_SDK','LLRP','MQTT','HTTP'));
+  EXEC(N'ALTER TABLE dbo.RfidReader ADD CONSTRAINT CK_RfidReader_IntegrationMode CHECK(IntegrationMode IN(''VENDOR_SDK'',''LLRP'',''MQTT'',''HTTP''))');
 IF COL_LENGTH('dbo.RfidRawEvent', 'RawPayload') IS NULL
   ALTER TABLE dbo.RfidRawEvent ADD RawPayload nvarchar(max) NULL;
 IF NOT EXISTS (SELECT 1 FROM sys.check_constraints WHERE name='CK_RfidRawEvent_RawPayload_Json')
