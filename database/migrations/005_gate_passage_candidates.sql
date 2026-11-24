@@ -18,9 +18,10 @@ IF NOT EXISTS (
       AND name = N'CK_RfidGate_PassageWindowMs'
 )
 BEGIN
-    ALTER TABLE dbo.RfidGate
-      ADD CONSTRAINT CK_RfidGate_PassageWindowMs
-      CHECK (PassageWindowMs BETWEEN 500 AND 30000);
+    EXEC sys.sp_executesql N'
+      ALTER TABLE dbo.RfidGate
+        ADD CONSTRAINT CK_RfidGate_PassageWindowMs
+        CHECK (PassageWindowMs BETWEEN 500 AND 30000);';
 END;
 
 IF OBJECT_ID(N'dbo.RfidGatePassageCandidate', N'U') IS NULL
