@@ -1,0 +1,11 @@
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import { getPool } from "./config/db";
+const app = express();
+app.use(cors({ origin: process.env.CORS_ORIGIN?.split(",") ?? "http://localhost:5173" }));
+app.use(express.json({ limit: "1mb" }));
+app.get("/api/health", (_req,res) => res.json({ status:"ok", service:"ptms-api", version:"0.1.0" }));
+app.get("/api/db/health", async (_req,res) => { try { const pool=await getPool(); const q=await pool.request().query("SELECT DB_NAME() AS databaseName, SYSDATETIMEOFFSET() AS serverTime"); res.json({status:"connected",...q.recordset[0]}); } catch(err) { console.error("DB health check failed",err); res.status(503).json({status:"unavailable",message:"Database connection failed. Check configuration and network access."}); } });
+app.get("/api/sites", async (_req,res) => { try { const pool=await getPool(); const q=await pool.request().query("SELECT SiteId,SiteCode,SiteName,SiteType,IsActive FROM dbo.Site WHERE IsActive=1 ORDER BY SiteName"); res.json(q.recordset); } catch(err) { console.error("List sites failed",err); res.status(500).json({message:"Unable to retrieve sites."}); } });
+const port=Number(process.env.PORT||4000); app.listen(port,()=>console.log("PTMS API listening on port "+port));
