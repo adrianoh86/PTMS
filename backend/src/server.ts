@@ -4,11 +4,13 @@ import cors from "cors";
 import sql from "mssql";
 import { getPool } from "./config/db";
 import rfidRouter from "./routes/rfid";
+import movementsRouter from "./routes/movements";
 
 const app = express();
 app.use(cors({ origin: process.env.CORS_ORIGIN?.split(",") ?? "http://localhost:5173" }));
 app.use(express.json({ limit: "1mb" }));
 app.use("/api/rfid", rfidRouter);
+app.use("/api/movements", movementsRouter);
 
 const siteTypes = ["FACTORY", "EXTERNAL_WAREHOUSE"] as const;
 const zoneTypes = ["RECEIVING", "STORAGE", "STAGING", "PRODUCTION", "DISPATCH", "OTHER"] as const;
