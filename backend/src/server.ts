@@ -21,7 +21,7 @@ function isDuplicate(error: unknown): boolean {
   return e?.number === 2601 || e?.number === 2627;
 }
 
-app.get("/api/health", (_req, res) => res.json({ status: "ok", service: "ptms-api", version: "0.2.0" }));
+app.get("/api/health", (_req, res) => res.json({ status: "ok", service: "ptms-api", version: "0.3.0" }));
 
 app.get("/api/db/health", async (_req, res) => {
   try {
