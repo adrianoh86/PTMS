@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from "react";
 import RfidPanel from "./RfidPanel";
+import GatePanel from "./GatePanel";
 
 type Site = {
   SiteId: number;
@@ -341,7 +342,8 @@ export default function App() {
         </>}
       </section>
       <RfidPanel />
-      <footer>PTMS · v0.4.0 · Raw RFID reads are not treated as confirmed pallet movements.</footer>
+      <GatePanel />
+      <footer>PTMS · v0.6.1 · Raw RFID reads are not treated as confirmed pallet movements.</footer>
     </main>
   );
 }
